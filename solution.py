@@ -129,7 +129,7 @@ def doParallelProcess(core):
 # starting point
 def main():
     if __name__ == '__main__':  
-        # include all 3 solution  
+        # include all 3 solution . uncomment function call you want to run
 
         # single thread solution
         #doSerial()
@@ -139,30 +139,6 @@ def main():
         
         # do parallel with process pool (use process core count as parameter)
         # doParallelProcess(16)
-
-    # # Notes :
-    # best performant way to scrap cermati job page would be using concurreny with threading. though concurrency is not the same with multiple process parallel execution.
-    # this due to threads still fall under GIL, but it offer more performance in this case. we don't need to do much heavy CPU work for scrapping cermati job posting, 
-    # the main time wasted is on waiting for network call when we need to get job details. this is due to jobs details need to be called through API,  
-    # and the resulting response is already in a json format that we can use directly (no need to process further, ex: doing regex search on page like what we did on root 'karir' page).
-    # on a task that is less cpu heavy, threading excel due to thread switching upon idle. so more thread can be done in this case.
-    # while on multi process, each process still bound on to this idle task. multi process will excel on when there's no cpu idle time that won't allow thread switchinng.
-    # on larger dataset (job listing), this time difference will get even larger.
-    #
-    # concurrency also have access to direct access to main process variable (since it's basically singel process), unlike parallel process that need to implement routine or other ways to manage passing data between each process.
-    # this because threads are still running on a single python interpreter, while multiple process run on their own python interpreter (hence the isolated data). 
-    # coding for multi processing must consider this issue on a case by case basis.
-    # 
-    # here are the performance result on all 3 type of solution
-    # tested AMD Ryzen 7 4800HS (8 CPU core, 16 Logical processor) with 24GB RAM
-    # Run	serial	concurrent	pararrel (16)	parallel (8)	parallel (4)
-    # 1	    31,361	2,248	    3,171	        5,082	        8,599
-    # 2	    30,494	2,278	    3,138	        4,966	        8,467
-    # 3	    30,542	2,355	    3,279	        5,117	        8,386
-    # 4	    30,592	2,286	    3,188	        4,817	        8,625
-    # 5	    30,631	2,306	    3,147	        4,880	        8,413
-    # Avg	30,724	2,295	    3,184	        4,972	        8,498
-
 
 # start
 main()
